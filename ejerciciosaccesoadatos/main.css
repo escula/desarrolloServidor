@@ -1,0 +1,15 @@
+form{
+    background-color: red;
+    display:flex;
+    direction: column;
+    
+    align-content: center;
+    justify-items: center;
+}
+button{
+    height: 5vh;
+    width:100%;
+}
+button{
+
+}
