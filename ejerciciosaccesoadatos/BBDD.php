@@ -47,14 +47,8 @@ class BBDD{
 
     }
     function updateAlumno($alumnoActualizar,$nombre,$apellido,$telefono,$correo){
-        $prepareStatement=$this->conexion->prepare("UPDATE alumnos SET nombre= ?,apellidos=?,telefono=?,correo=? WHERE nombre =?");
-        $prepareStatement->bindParam(1, $nombre, PDO::PARAM_STR);
-        $prepareStatement->bindParam(2, $apellido, PDO::PARAM_STR);
-        $prepareStatement->bindParam(3, $telefono, PDO::PARAM_INT);
-        $prepareStatement->bindParam(4, $correo, PDO::PARAM_STR);
-        $prepareStatement->bindParam(5,$alumnoActualizar);
-        // $actualizar=$this->conexion->query("UPDATE alumnos SET nombre =".$nombre.", apellidos =".$apellido.", telefono = ".$telefono."correo=" .$correo." WHERE nombre = ".$alumnoActualizar.";");
-        return $prepareStatement->execute();
+        $actualizar=$this->conexion->query("UPDATE alumnos SET nombre =".$nombre.", apellidos =".$apellido.", telefono = ".$telefono."correo=" .$correo." WHERE nombre = ".$alumnoActualizar.";");
+        return $actualizar->execute();
     }
 }
 ?>
