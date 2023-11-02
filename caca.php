@@ -7,7 +7,7 @@
             }
         ?>
     </head>
-a
+
     <?php
         const CACA="casop";
         const Edad=2002;
