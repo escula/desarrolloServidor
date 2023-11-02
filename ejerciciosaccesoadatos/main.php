@@ -13,28 +13,24 @@
     <?php
     echo "";
     ?>
-
+    <main>
     <section>
         <header>q quieres hacer?</header>
-        <form action="">
-                <button>Crear Alumno</button>
-                <button>Buscar Alumno</button>
-                <button>Modificar Alumno</button>
-                <button>Eliminar Alumno o alumnos</button>
-        </form>
+
+        <a href="crearAlumno.php">Crear Alumno</a>
+        <a href="buscarAlumno.php">Buscar Alumno</a>
+        <a href="modificarAlumno.php">Modificar Alumno</a>
+        <a href="eliminarAlumno.php">Eliminar Alumno o alumnos</a>
+        
     </section>
+    </main>
+    
 
 
 </body>
 
 </html>
 <?php
-include("BBDD.php");
-$bd=new BBDD();
-$bd->deleteAlumno("Roberto");
-$alumno=$bd->selectAlumno("andres");
-print_r($alumno);
-$bd->updateAlumno("LAURA","paco","ramirez",2131,"fsfdsd.dasdas");
 
 // $bd->insertarAlumno("Roberto","Lorca",32432,"fasuia@fsmio");
 
