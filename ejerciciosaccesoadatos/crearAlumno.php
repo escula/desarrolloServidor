@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <form action="crearAlumno" method="post">
+    <form action="crearAlumno.php" method="post">
         <fieldset>
             <legend>Introducier en base de datos un nuevo usuario</legend>
             <label >nombre:</label>
@@ -23,17 +24,38 @@
             
         </fieldset>    
     </form>
+
 </body>
-</html>
 <?php
-    if(isset($_POST["entrado"])){
-         $nombre=$_POST["nombre"];
-         $telefono=$_POST["apellido"];
-         $apellido=$_POST["telefono"];
-         $correo=$_POST["correo"];
-        $bd=new BBDD();
-        $bd->insertarAlumno($nombre,$telefono,$apellido,$correo);
-
-
-    }
+    include 'BBDD.php';
+    
+    $nombre=$_POST["nombre"];
+    $telefono=$_POST["apellido"];
+    $apellido=$_POST["telefono"];
+    $correo=$_POST["correo"];
+    $bd=new BBDD();
+    $bd->insertarAlumno($nombre,$telefono,$apellido,$correo);
+    $bd->closeConnection();
+    echo "<table>
+        <tr>
+            <th>nombre</th>
+            <th>apellido</th>
+            <th>telefono</th>
+            <th>correo</th>
+        </tr>
+        <tr>
+            <td>$nombre</td>
+            <td>$telefono</td>
+            <td>$apellido</td>
+            <td>$correo.</td>
+        </tr>
+        </table>";
+    
+    
+    
+        
+    
+    
+    
 ?>
+</html>

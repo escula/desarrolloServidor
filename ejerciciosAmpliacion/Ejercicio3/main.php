@@ -27,6 +27,12 @@
 </body>
 </html>
 <?php
+    if(isset($_POST["ganaPersona"])){
+         $nombre=$_POST["eleccionPersona"];
+         $telefono=$_POST["eleccionPersona"];
+         $apellido=$_POST["eleccionPersona"];
+         $correo=$_POST["eleccionPersona"];
 
+    }
 
 ?>
