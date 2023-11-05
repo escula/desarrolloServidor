@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="login.css">
-    <script type="module" src=""></script>
+    <link href="../reseteo.css" rel="stylesheet" type="text/css">
+    <script defer type="module" src="./login.js"></script>
 </head>
 
 <body>
     <main>
-        <section>
+        <login-display></login-display>
+        <!-- <section>
             <form action="">
                 <div>
                     <label >Usuario</label>
@@ -27,7 +28,7 @@
                 </header>
                 
 
-        </section>
+        </section> -->
     </main>
 </body>
 

@@ -11,7 +11,7 @@
 *{
     all:unset;
 }
-head, title, audio { display: none; }
+style,head, title, audio { display: none; }
 
 body{
     background-color: var(---main-background);
