@@ -1,4 +1,4 @@
-@import url(variable.css);
+@import url(reset.css);
 
 main{
     width: 100vw;
@@ -44,6 +44,9 @@ section{
 
             
 
+        }
+        & button{
+            background-color: aliceblue;
         }
     }
 }

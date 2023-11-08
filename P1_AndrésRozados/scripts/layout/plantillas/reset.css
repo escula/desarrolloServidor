@@ -4,9 +4,10 @@
     
     /* --main-background:hsla(176, 0%, 99%, 1); */
     --main-background:hsla(176, 0%, 99%, 1);
-    --menu-background:hsla(176, 87%, 98%, 1);
+    --menu-background:hsla(223, 100%, 68%, 1);
     --input-background:rgb(255, 255, 255);
     --input-border:rgb(214, 214, 214);
+    --button-hover:hsla(176, 0%, 91%, 1);
 }
 *{
     all:unset;
@@ -40,7 +41,7 @@ form{
     overflow: hidden;
     padding: 0% 10%;
 }
-input{
+button,input{
     background-color: var(--input-background);
     width: 100%;
     height: 3em;
@@ -49,6 +50,10 @@ input{
     border-style: none;
     padding: 0% 10%;
 
+}
+button:hover{
+    cursor:pointer;
+    background-color: var( --button-hover);
 }
 ::placeholder {
     display: block;
