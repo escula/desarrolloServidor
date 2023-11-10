@@ -24,44 +24,11 @@
                 include '../../model/BBDD.php';
                 $con=new BBDD();
                 $nombreTablas=$con->selectNombreTablas();
-                foreach ($nombreTablas as $nombreTabla) {
-                    echo "<li>.$nombreTabla.</li>";
+                foreach ($nombreTablas as $key=>$value) {
+                    echo "<li>".$value['nombre']."</li>";
+
                 }
             ?>
-            <!-- <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li>
-            <li><a href="http://">Invitados</a></li>
-            <li><a href="http://">hfiaofhoiafhoiahoi</a></li>
-            <li ><a href="http://">Empleados</a></li>
-            <li >aw4srextdcyvgubhinjzexrtcyivuobi</li> -->
         </ul>
 
 
