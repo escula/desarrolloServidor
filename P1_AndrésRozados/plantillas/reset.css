@@ -11,6 +11,11 @@
 }
 *{
     all:unset;
+    padding:0px;
+    margin:0px;
+}
+nav{
+    padding:0;
 }
 head, title, audio { display: none; }
 
@@ -63,4 +68,7 @@ button:hover{
 ::-ms-input-placeholder { /* Edge 12 -18 */
 display: block;
 color: red;
+}
+a:hover{
+    cursor: pointer;
 }

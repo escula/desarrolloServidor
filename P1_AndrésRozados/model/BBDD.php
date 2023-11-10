@@ -2,7 +2,7 @@
 
 class BBDD{
     private $conexion;
-    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
+    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -15,6 +15,25 @@ class BBDD{
     }
     public function getConexion(){
         return $this->conexion;
+    }
+    function selectTrabajos($idTrabajo){
+        $prepareStatement=$this->conexion->prepare("SELECT * FROM trabajos WHERE Trabajo_ID=?");
+
+        $prepareStatement->bindParam(1, $idTrabaj, PDO::PARAM_STR);
+        $prepareStatement->execute();
+        echo "fufa";
+        return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
+
+
+    }
+    function selectNombreTablas(){
+        $prepareStatement=$this->conexion->prepare("SELECT table_name AS nombre
+        FROM information_schema.tables WHERE table_schema = 'pufosa';");
+
+        $prepareStatement->execute();
+        return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
+
+
     }
     public function insertarAlumno($nombre,$apellido,$telefono,$correo){
             $prepareStatement=$this->conexion->prepare("INSERT INTO empleados (nombre,apellidos,telefono,correo) VALUES (:nombre,:apellido,:telefono,:correo)");
@@ -41,16 +60,6 @@ class BBDD{
         $prepareStatement=$this->conexion->prepare("SELECT * FROM empleados WHERE empleado_ID=?");
 
         $prepareStatement->bindParam(1, $id, PDO::PARAM_STR);
-        $prepareStatement->execute();
-        echo "fufa";
-        return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
-
-
-    }
-    function selectTrabajos($idTrabajo){
-        $prepareStatement=$this->conexion->prepare("SELECT * FROM trabajos WHERE Trabajo_ID=?");
-
-        $prepareStatement->bindParam(1, $idTrabaj, PDO::PARAM_STR);
         $prepareStatement->execute();
         echo "fufa";
         return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
