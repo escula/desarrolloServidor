@@ -21,19 +21,24 @@
     <aside>
         <ul>
             <?php
-                include '../../model/BBDD.php';
+                // include '../../model/BBDD.php';
                 $con=new BBDD();
                 $nombreTablas=$con->selectNombreTablas();
                 foreach ($nombreTablas as $key=>$value) {
                     echo "<li>".$value['nombre']."</li>";
 
                 }
+                
             ?>
+            
         </ul>
-
+        <hr>
 
     </aside>
     <main>
+        <form action="">
+
+        </form>
         <div style="display:block;height: 50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa cupiditate, in quidem repellat magni consectetur adipisci neque nulla quae velit.</div>
     </main>
 </body>
