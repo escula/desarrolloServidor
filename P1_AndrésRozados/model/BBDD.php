@@ -1,8 +1,8 @@
 <?php
 
 class BBDD{
-    public $conexion;
-    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
+    private $conexion;
+    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,7 +16,7 @@ class BBDD{
     public function getConexion(){
         return $this->conexion;
     }
-    function selectTrabajos($idTrabajo){
+    function selectTrabajo($idTrabajo){
         $prepareStatement=$this->conexion->prepare("SELECT * FROM trabajos WHERE Trabajo_ID=?");
 
         $prepareStatement->bindParam(1, $idTrabaj, PDO::PARAM_STR);
