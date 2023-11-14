@@ -2,7 +2,7 @@
 
 class BBDD{
     private $conexion;
-    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
+    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -13,15 +13,11 @@ class BBDD{
     function closeConnection(){
         $this->conexion=null;
     }
-    public function getConexion(){
-        return $this->conexion;
-    }
     function selectTrabajo($idTrabajo){
         $prepareStatement=$this->conexion->prepare("SELECT * FROM trabajos WHERE Trabajo_ID=?");
 
         $prepareStatement->bindParam(1, $idTrabaj, PDO::PARAM_STR);
         $prepareStatement->execute();
-        echo "fufa";
         return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -61,7 +57,6 @@ class BBDD{
 
         $prepareStatement->bindParam(1, $id, PDO::PARAM_STR);
         $prepareStatement->execute();
-        echo "fufa";
         return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
 
 
