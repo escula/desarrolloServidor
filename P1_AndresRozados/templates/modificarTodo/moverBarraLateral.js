@@ -46,7 +46,8 @@ function moverRaton(e) {
     nuevoTamanoColumna=parseInt(posicionRatonRespectoWindows)-padreCordenadas.left;
     
     tamanosColumnas[numeroIdHrPulsado]=nuevoTamanoColumna+"px";
-
+    tamanosColumnas[numeroIdHrPulsado+1]="1fr";//Reescribiendo a 1fr la segunda columna para que se muestre correctamente el main
+    
     let resultado="";
     tamanosColumnas.forEach(columnaValor => {
         resultado=resultado+columnaValor+" ";

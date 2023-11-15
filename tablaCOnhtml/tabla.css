@@ -1,0 +1,56 @@
+@import url("reset.css");
+.main{
+    display: block;
+}
+
+table,th,td{
+    /* border-collapse: collapse; */
+    border-spacing: 20px 10px;
+    white-space: nowrap;
+}
+table{
+    display: block;
+    overflow: auto;
+    
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+    font-size: 1.5em;
+    
+}
+tr{
+    display: table-row;
+}
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;
+    
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    border-spacing: 10px 5px;
+}
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    text-align: center;
+}
+
+
+td img{
+    height: 15px;
+    width: auto;
+}
+.tabla-mostrar-tablas tbody tr td:last-child{
+    background-color: blue;
+    position:sticky;
+    left: 0px;
+    display: block;
+    
+}

@@ -4,6 +4,7 @@ abstract class RedigingMaterial{
     private $id;
     private $title;
     private $price;
+    private $pages;
     private $editor;
 
     function __construct()
@@ -13,11 +14,16 @@ abstract class RedigingMaterial{
 
     function anadirIva()
     {
-
+        $this->price=($this->price*0.21)+$this->price;
     }
     function mostrarCategoria()
     {
+        if($this->pages>50){
+            echo "large";
 
+        }else{
+            echo "mini";
+        }
     }
 
     /**

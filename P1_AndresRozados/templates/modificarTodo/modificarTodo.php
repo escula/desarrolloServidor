@@ -10,6 +10,7 @@
     <script defer src="./moverBarraLateral.js"></script>
     <script defer>
         //Envia al servidor la tabla y recibe por json la tabla que le manda el servidor
+        let tablaJSon={};
         function tablaPulsada(nombreTabla){
             let datosAEnviar= new FormData();
             datosAEnviar.append('nombreTabla',nombreTabla);
@@ -28,11 +29,18 @@
             })
             .then(function(json){
                 console.log(json)
+                tablaJSon=json;
+                let elementoMain=document.querySelector('main');
+                createNode
+                elementoMain.createElement("")
+                
+                
             })
             .catch(function(error){
                 console.log(error);
             });
         }
+        
     </script>
 </head>
 <body class="grid-principal">
@@ -68,10 +76,10 @@
 
     </aside>
     <main>
-        <form action="">
-
-        </form>
-        <div style="display:block;height: 50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa cupiditate, in quidem repellat magni consectetur adipisci neque nulla quae velit.</div>
+        <div class="modal-inicial">
+            <p>Selecciona alguna tabla en el menu lateral</p>
+        <div>
+        <!-- style="display:block;height: 50px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa cupiditate, in quidem repellat magni consectetur adipisci neque nulla quae velit.</div> -->
     </main>
 </body>
 

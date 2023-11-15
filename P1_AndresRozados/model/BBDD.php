@@ -2,7 +2,7 @@
 
 class BBDD{
     private $conexion;
-    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
+    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -31,8 +31,8 @@ class BBDD{
 
 
     }
-    function selectTodaTabla(){
-        $prepareStatement=$this->conexion->prepare("SELECT * FROM cliente");
+    function selectTodaTabla($nombreTabla){
+        $prepareStatement=$this->conexion->prepare("SELECT * FROM ".$nombreTabla);
         // $prepareStatement->bindParam(':nombreTabla', $nombreTabla);
         $prepareStatement->execute();
         return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
