@@ -7,13 +7,13 @@ include_once "../../model/BBDD.php" ;
 include_once "../../templates/generadorVistas/generadorVistas.php";
 include_once "../../model/cookies.php";
 $conexionBD=new BBDD();
-// GeneradorVista::generarVista([]);
+GeneradorVista::generarVista([]);
 
 
 if(isset($_POST["password"])){
     
     // include '../../constants/usuariosPrivilegios.php';
-    include '../../templates/modalMensaje/modalMensaje.php';
+    // include '../../templates/modalMensaje/modalMensaje.php';
     // include '../modificarTodo/modificarTodo.php';
     
     
