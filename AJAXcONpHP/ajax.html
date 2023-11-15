@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer>
+        function enviar(){
+            let data= new FormData();
+            data.append('a',5)
+
+            let request=fetch('servidor.php',{
+                method:'POST',
+                body:data//Enviamos al servidor
+            }).
+            then(function(response){//info que recive del server
+                if(response.ok){
+                    return response.text();
+                }else{
+                    throw "error en la llamada";
+                }
+                
+            })
+            .then(function(texto){
+                console.log(texto)
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+
+            // var xhr=new XMLHttpRequest();
+            // xhr.open('POST','servidor.php',true);
+            // xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded; charset=ISO-8859-1')
+            // xhr.send("a=3");
+            
+            // xhr.onload=function(){
+            //     if(xhr.status==200){
+            //         var respuesta = JSON.parse(xhr.responseText);
+            //         console.log(respuesta)
+            //     }
+            // }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="enviar()">enviar info y recivirla</button>
+</body>
+</html>
