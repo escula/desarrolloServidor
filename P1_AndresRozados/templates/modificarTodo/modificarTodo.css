@@ -4,7 +4,7 @@ body{
     min-width: 200px;
     display: grid;
     grid-template-rows: 50px 1fr;
-    grid-template-columns: minmax(70px,15vw) repeat(5, 1fr);
+    grid-template-columns: 15vw repeat(5, 1fr);
     height: 100vh;
     grid-template-areas: 
     "header header header header header header"
