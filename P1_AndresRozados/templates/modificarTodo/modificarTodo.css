@@ -180,3 +180,8 @@ td img{
     left: 0px;
     display: block;
 }
+.borrarFila{
+    background-color: lightcoral;
+    display:block;
+    width: 50px;
+}
