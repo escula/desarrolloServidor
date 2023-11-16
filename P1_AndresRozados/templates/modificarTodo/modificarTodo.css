@@ -185,3 +185,6 @@ td img{
     display:block;
     width: 50px;
 }
+.botonPulsado{
+    background-color: lightseagreen;
+}

@@ -23,7 +23,9 @@ $conexionBD=new BBDD();
                 foreach ($arrayContieneFila as $ValorDeCadaCasillaDeFila) {
                     $resultadoVista.='<td>'.$ValorDeCadaCasillaDeFila.'</td>';        
                 }
-                $resultadoVista.='<td><button class="borrarFila" onclick="borrarFila('.$numerofila.')"><img src="../../assets/trash.svg" alt="borrar fila"></button></td>';
+                // $resultadoVista.='<td><button class="borrarFila" onclick="borrarFila('.$numerofila.')"><img src="../../assets/trash.svg" alt="borrar fila"></button></td>';
+                $resultadoVista.='<td><button class="borrarFila"><img src="../../assets/trash.svg" alt="borrar fila"></button></td>';
+                
                 $resultadoVista.='</tr>';
             }
             

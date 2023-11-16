@@ -11,6 +11,7 @@
     <script defer>
         //Envia al servidor la tabla y recibe por text la html que se debe inyectar a su vez lo inyecta en el sitio adecuado
         let nombreTablaPulsada="";
+        
         function tablaPulsada(nombreTabla){
             let datosAEnviar= new FormData();
             datosAEnviar.append('nombreTabla',nombreTabla);
@@ -36,21 +37,22 @@
                 elementoMain.innerHTML=respuestaServidor;//Se mete a capon el html que nos viene del servidor
                 // createNode
                 // elementoMain.createElement("")
-                
-                
-            })
+                let botonesBorrar=document.getElementsByClassName('borrarFila');
+                for (let indiceBotonBorrar = 0; indiceBotonBorrar < botonesBorrar.length; indiceBotonBorrar++) {
+                    botonesBorrar[indiceBotonBorrar].addEventListener("mousedown",pulsarBotonBorrar);
+                   
+                }
+            })                    
             .catch(function(error){//captura el throw lanzado en el primer then
                 console.log(error);
             });
         }
-        function borrarFila(numeroFila){
-            // numeroFila el numeroFila empieza desde cero por lo que hay que sumarle uno para que no tenga el cuenta el tr del head
-            let todasLasFilas=document.querySelectorAll('tr');
-            let filaAborrar=todasLasFilas[numeroFila+1];
+        function pulsarBotonBorrar(objetoEvento) {
+            let filaAborrar=objetoEvento.currentTarget.parentNode.parentNode;
             let idFila=filaAborrar.childNodes[0].innerHTML;//recogemos el id que simpre se encuentra en el primer td
+            
             let nombreColumnaID=document.querySelector('thead tr th').textContent;
             
-            console.log(nombreColumnaID);
 
             let datosAEnviar= new FormData();
        
@@ -74,6 +76,7 @@
             })
             .then(function(respuestaServidor){
                 if(respuestaServidor){
+                    console.log(filaAborrar)
                     filaAborrar.remove()
                 }
                 
@@ -82,7 +85,51 @@
             .catch(function(error){//captura el throw lanzado en el primer then
                 console.log(error);
             });
+
+        
         }
+        
+        // function borrarFila(numeroFila){
+        //     // numeroFila el numeroFila empieza desde cero por lo que hay que sumarle uno para que no tenga el cuenta el tr del head
+        //     let todasLasFilas=document.querySelectorAll('tr');
+        //     let filaAborrar=todasLasFilas[numeroFila+1];
+        //     let idFila=filaAborrar.childNodes[0].innerHTML;//recogemos el id que simpre se encuentra en el primer td
+        //     let nombreColumnaID=document.querySelector('thead tr th').textContent;
+            
+        //     console.log(nombreColumnaID);
+
+        //     let datosAEnviar= new FormData();
+       
+        //     datosAEnviar.append('nombreTabla',nombreTablaPulsada);
+        //     datosAEnviar.append('nombreColumnaID',nombreColumnaID);
+        //     datosAEnviar.append('idABorrar',idFila);
+            
+        //     let request=fetch('http://localhost/exercices/P1_AndresRozados/controller/modificarTodo/modificarTodoControlador.php',{
+        //         method:'POST',
+        //         body:datosAEnviar//Enviamos al servidor
+        //     }).
+        //     then(function(response){//info que recive del server
+        //         if(response.ok){
+        //             // return response.json();
+        //             return response.text();
+
+        //         }else{
+        //             throw "error en la llamada";
+        //         }
+                
+        //     })
+        //     .then(function(respuestaServidor){
+        //         if(respuestaServidor){
+        //             filaAborrar.remove()
+        //         }
+                
+                
+        //     })
+        //     .catch(function(error){//captura el throw lanzado en el primer then
+        //         console.log(error);
+        //     });
+
+        // }
 
     </script>
 </head>
