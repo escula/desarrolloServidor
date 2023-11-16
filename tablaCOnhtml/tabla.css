@@ -47,7 +47,7 @@ td img{
     height: 15px;
     width: auto;
 }
-.tabla-mostrar-tablas tbody tr td:last-child{
+table tbody tr td:last-child{
     background-color: blue;
     position:sticky;
     left: 0px;

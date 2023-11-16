@@ -7,14 +7,15 @@ hrs.forEach(element => {
 
 element.addEventListener("mousedown", function (evento){
     evento.currentTarget.classList.add('clicado');
-    
+    document.querySelector('body').classList.add('col-resize');
     document.addEventListener('mousemove', moverRaton);//Para coger el objeto de tipò Event es necesario que no tenga parametro la funcion moverRaton
-      
+    
     
     
 });
 document.addEventListener('mouseup', function(event){
     document.removeEventListener('mousemove', moverRaton);
+    document.querySelector('body').classList.remove('col-resize');
     element.classList.remove('clicado')
 });
 });
@@ -25,7 +26,7 @@ function moverRaton(e) {
     let hrPulsado=document.querySelector('.clicado');
     let numeroIdHrPulsado=hrPulsado.id.split("-")[1];//Se puede hacer también con un querySelectorAll('hr') y revisando con un bucle que hr tiene la clase, pero de esta forma me veo forzado a hacer un bucle
     let padreHrPulsado=hrPulsado.parentElement;
-    let padreCordenadas=padreHrPulsado.getBoundingClientRect();
+    let padreCordenadas=padreHrPulsado.getBoundingClientRect();//Obteniendo cordenadas del grid
 
 
     let grid=document.getElementsByClassName('grid-principal')[0];
@@ -33,28 +34,26 @@ function moverRaton(e) {
     let contendorEstilos=getComputedStyle(grid);
     let gridTemplateColumn=contendorEstilos.getPropertyValue("grid-template-columns");
     let tamanosColumnas=gridTemplateColumn.split(" ");//Contiene Ej: [delimitador-0,delimitador-1,ect]
-    // let contenedor=elmentoClicado;//devuelve el contendor
-    // console.log(document.getElementsByClassName('clicado')[0].parentNode)
-
-
-    
-    
-    //Obteniendo cordenadas del grid
-
-    console.log("coordenadas", padreCordenadas)
 
     nuevoTamanoColumna=parseInt(posicionRatonRespectoWindows)-padreCordenadas.left;
-    
-    tamanosColumnas[numeroIdHrPulsado]=nuevoTamanoColumna+"px";
-    tamanosColumnas[numeroIdHrPulsado+1]="1fr";//Reescribiendo a 1fr la segunda columna para que se muestre correctamente el main
-    
-    let resultado="";
-    tamanosColumnas.forEach(columnaValor => {
-        resultado=resultado+columnaValor+" ";
-    });
+    if(nuevoTamanoColumna>250){//Si se llega al tope de pixeles 
 
-    console.log(resultado);
-    grid.style.gridTemplateColumns=resultado;
+    }else if(nuevoTamanoColumna<100){
+
+    }else{
+        tamanosColumnas[numeroIdHrPulsado]=nuevoTamanoColumna+"px";
+        tamanosColumnas[1]="1fr";//Reescribiendo a 1fr la segunda columna para que se muestre correctamente el main
+        
+        let resultado="";
+        tamanosColumnas.forEach(columnaValor => {
+            resultado=resultado+columnaValor+" ";
+        });
+        console.log(tamanosColumnas);
+        console.log(resultado);
+        grid.style.gridTemplateColumns=resultado;
+    }
+    
+    
 
     
     

@@ -14,6 +14,12 @@
     print_r($json);
 
     echo "<button onclick='cacatua($json)'>boton</button>";
+    $palabra="PP";
+    $palabra.="+PSO";
+    $palabra.="Junts";
+    echo $palabra;
+    $resultado=$conexion->eliminarFila('cliente','CLIENTE_ID',101);
+    echo $resultado;
 ?>
 <script>
         function cacatua(baseDatos){

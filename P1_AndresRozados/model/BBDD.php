@@ -2,7 +2,7 @@
 
 class BBDD{
     private $conexion;
-    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
+    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -32,7 +32,7 @@ class BBDD{
 
     }
     function selectTodaTabla($nombreTabla){
-        $prepareStatement=$this->conexion->prepare("SELECT * FROM ".$nombreTabla);
+        $prepareStatement=$this->conexion->prepare("SELECT * FROM ".$nombreTabla.";");
         // $prepareStatement->bindParam(':nombreTabla', $nombreTabla);
         $prepareStatement->execute();
         return $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
@@ -57,6 +57,14 @@ class BBDD{
             return $prepareStatement->execute();
             
 
+    }
+    public function eliminarFila($nombreTabla,$nombreColumnaID,$idDefilaBorrar){
+        $resultado=$this->conexion->exec("DELETE FROM ".$nombreTabla." WHERE ".$nombreColumnaID." = ".$idDefilaBorrar);
+        return $resultado;
+        // $prepareStatement=$this->conexion->prepare("DELETE FROM ".$nombreTabla." WHERE  = :id");
+        // $prepareStatement->bindParam(':nombreCol',$nombreColumnaID,PDO::PARAM_STR);
+        // $prepareStatement->bindParam(':id',$idDefilaBorrar,PDO::PARAM_INT);
+        // return $prepareStatement->execute();
     }
 
 
