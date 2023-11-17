@@ -8,7 +8,8 @@ $conexionBD=new BBDD();
         $resultadoTabla=$conexionBD->selectTodaTabla($_POST['nombreTabla']);
         if(count($resultadoTabla)>=1){//Si tiene por lo menos alguna fila realizar la tabla si no mandar al front un mensaje de que no hay filas
             $resultadoVista="";
-            $resultadoVista.='<table>
+            $resultadoVista.='<section class="anadirFila"><img src="../../assets/add-circle.svg" alt="borrar fila"></section>';
+            $resultadoVista.='<section class="seccion-tabla"><table>
             <thead>
                     <tr>';
             foreach ($resultadoTabla[0] as $nombreColumna => $valorColumna) {
@@ -31,7 +32,7 @@ $conexionBD=new BBDD();
             }
             
             $resultadoVista.='</tbody>
-            </table>';
+            </table></section>';
             echo "$resultadoVista";//Se envia a la vista
 
 

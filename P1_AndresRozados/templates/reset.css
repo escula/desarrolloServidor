@@ -72,3 +72,41 @@ color: red;
 a:hover{
     cursor: pointer;
 }
+table,th,td{
+    /* border-collapse: collapse; */
+    border-spacing: 20px 10px;
+    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+}
+table{
+    display: block;
+    
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+    font-size: 1.5em;
+}
+tr{
+    display: table-row;
+}
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: center;
+    
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    border-spacing: 10px 5px;
+}
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    text-align: center;
+}

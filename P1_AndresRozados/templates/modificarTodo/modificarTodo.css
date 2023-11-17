@@ -107,6 +107,9 @@ aside{
 .col-resize{
     cursor: col-resize;
 }
+.tablaPulsada{
+    background-color: lightsalmon;
+}
 main{
     max-height: 100%;
     grid-area:contenido-prin;
@@ -115,9 +118,10 @@ main{
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    overflow: hidden;
+    gap:1%;
 }
-.modal-inicial{
+/* .modal-inicial{
     user-select:none;
     height: 20%;
     width: 40%;
@@ -128,62 +132,62 @@ main{
     align-items: center;
     font-size: 1.5em;
     padding:20px;
+} */
+.anadirFila img{
+    margin:0% 5%;
+    width: 25px;
+    height: auto;
+}
+.anadirFila img:hover{
+    margin:0% 5%;
+    width: 25px;
+    fill: white;
+    cursor: pointer;
+}
+.seccion-tabla{
+    display:flex;
+    height:100%;
+    width:100%;
+    overflow: auto;
+    border-radius: 20px;
+    background-color: lightblue;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 1;
+    & table{
+        overflow: auto;
+        & tbody tr:nth-child(2n){
+            background-color: lightsteelblue;
+        }
+        & tbody tr:nth-child(2n+1){
+            background-color: rgb(77, 90, 104);
+            color:white;
+        }
+        & tbody tr td:last-child{
+            background-color: rgba(255, 255, 255, 0);
+        }
+    }
+    
 }
 
-
-table,th,td{
-    /* border-collapse: collapse; */
-    border-spacing: 20px 10px;
-    white-space: nowrap;
-    width: 100%;
-    height: 100%;
-}
-table{
-    display: block;
-    
-}
-thead {
-    display: table-header-group;
-    vertical-align: middle;
-    border-color: inherit;
-    font-size: 1.5em;
-    
-}
-tr{
-    display: table-row;
-}
-th {
-    display: table-cell;
-    vertical-align: inherit;
-    font-weight: bold;
-    text-align: center;
-    
-}
-tbody {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-    border-spacing: 10px 5px;
-}
-td {
-    display: table-cell;
-    vertical-align: inherit;
-    text-align: center;
-}
 td img{
     height: 15px;
     width: auto;
 }
-.tabla-mostrar-tablas tbody tr td:last-child{
+/* .tabla-mostrar-tablas tbody tr td:last-child{
     background-color: blue;
     position:sticky;
     left: 0px;
     display: block;
-}
+} */
 .borrarFila{
     background-color: lightcoral;
     display:block;
     width: 50px;
+}   
+.borrarFila:hover{
+    background-color: white;
 }
 .botonPulsado{
     background-color: lightseagreen;
@@ -211,3 +215,10 @@ td img{
     white-space: wrap;
     font-size: 1.2em;
 }
+.anadirFila{
+display:block;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
