@@ -188,3 +188,26 @@ td img{
 .botonPulsado{
     background-color: lightseagreen;
 }
+.modal{
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    position:fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    max-width: 15vw;
+    height: 8vh;
+    right: 3vw;
+    bottom: 3vh;
+    overflow: auto;
+    opacity: 0;
+    border:1px solid black;
+    transition: opacity 0.5s;
+}
+.modalConfirmacion p{
+    display: block;
+    white-space: wrap;
+    font-size: 1.2em;
+}

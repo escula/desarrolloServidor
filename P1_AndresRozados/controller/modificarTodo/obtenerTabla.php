@@ -1,5 +1,6 @@
 <?php
 include_once "../../model/BBDD.php" ;
+include_once "../../constants/erroresSQL.php";
 $conexionBD=new BBDD();
     
     if(isset($_POST['nombreTabla'])){
@@ -38,37 +39,4 @@ $conexionBD=new BBDD();
             echo "<p>No hay filas<p>";
         }
     }
-    if(isset($_POST['idABorrar'])){
-
-        $numFilEliminadas=$conexionBD->eliminarFila($_POST['nombreTabla'],$_POST['nombreColumnaID'],$_POST['idABorrar']);
-        
-    }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // echo json_encode($resultadoTabla);
-    // }
-
-
 ?>
