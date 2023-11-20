@@ -152,14 +152,14 @@ function enviarFila(){
             body:datosEnviar
         }).then(response=>{
             if(response.ok){
-                return response.text();
+                return response.json();
     
             }else{
                 throw "error en la llamada";
             }
         })
         .then(respuestaServidor=>{
-            console.log(respuestaServidor)
+            // console.log(respuestaServidor)
             const modal=document.getElementById('modalConfirmacion');
             modal.firstElementChild.innerHTML=respuestaServidor.mensajePopUp;
             
@@ -167,6 +167,43 @@ function enviarFila(){
     
                 modal.style.backgroundColor="lightgreen";
                 
+                //Sustituyendo el disquete por el que genera el formulario
+                document.getElementsByClassName('anadir-icono-para-insert')[0].innerHTML=respuestaServidor.botonInsertar;
+
+
+
+                //duplicando una columna que no tiene formulairo para cambiarles los colores e insertarla en la tabla del front
+                let valoresFila=[];
+                tds=document.querySelectorAll('input');
+                tds.forEach(cadaColumna => {
+                    console.log(cadaColumna);
+                    valoresFila.push(cadaColumna.value);
+                });
+                valoresFila.pop();//Borrando valor del input de tipo hidden
+                
+                let filaduplicada=document.querySelectorAll('tbody tr')[1].cloneNode(true);//clonar la segunda etiqueta tr dentro de tbody
+                console.log(filaduplicada.childNodes)
+                tdDuplicados=filaduplicada.childNodes;
+
+                for (let index = 0; index < valoresFila.length; index++) {
+                    tdDuplicados[index].innerHTML=valoresFila[index];
+                    
+                }
+                filaduplicada.innerHTML=filaduplicada.innerHTML;
+
+                
+                document.querySelector('tbody').prepend(filaduplicada);
+                
+                
+                modal.style.opacity="1"// si no ponenmos este modal aqui no aparecera ya que despues el evento muere junto con el form
+                setTimeout(() => {
+                        modal.style.opacity="0"
+                }, 2000);
+
+
+                //Eliminando el formulario, por lo tanto se elimina tambien el evento
+                document.getElementById("formulario").parentElement.remove();
+
             }else{
                 modal.style.backgroundColor="lightcoral";
             }
@@ -174,9 +211,11 @@ function enviarFila(){
             setTimeout(() => {//Se desbanece solo el modal
                     modal.style.opacity="0"
                 }, 2000);
+            
+            
 
         })
-        .catch(error=>console.log(error))
+        .catch(error=>console.log(error));
         
     });
 

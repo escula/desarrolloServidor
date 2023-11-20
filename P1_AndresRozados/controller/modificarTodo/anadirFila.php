@@ -78,21 +78,22 @@ if(isset($_POST['nombreTabla'])){
                     if($maxYOminArray[1]==="0"){//Si el numero que especifica la cantidad de decimales es 0
                         return 'max="'.(pow(10,$maxYOminArray[0])-1).'"';//calculadon el numero maximo que se permite
                     }else{
-                        return 'max="'.(pow(10,$maxYOminArray[0])-1).'" min="'.(1/(pow(10,$maxYOminArray[1]))).'"';//Solo nos interesan los dos primeros                  
+                        return 'max="'.(pow(10,$maxYOminArray[0])-1).'" min="'.(1/(pow(10,$maxYOminArray[1]))).'" step="'.(1/(pow(10,$maxYOminArray[1]))).'"';//Solo nos interesan los dos primeros                  
                     }
                 }
 
             }
         }
     }
+    //Caundo pulsamos en el boton de guardar la fila que vamos a inserta
     if(isset($_POST["insertarEnTabla"])){
         try{
             $nombreColYValores=array_slice($_POST,0,-1);
-            print_r( $_POST);
-            print_r($nombreColYValores);
-            print_r($_POST['insertarEnTabla']);
-            echo $resultado=$conexion->insertarCualquierCosa($nombreColYValores,$_POST['insertarEnTabla']);
-            $mensajeParaVista=array("tipoModal"=>"modalCorrecto","mensajePopUp"=>"Se ha realizado la inserccion satisfactoriamente");
+            // print_r( $_POST);
+            // print_r($nombreColYValores);
+            // print_r($_POST['insertarEnTabla']);
+            $resultado=$conexion->insertarCualquierCosa($nombreColYValores,$_POST['insertarEnTabla']);
+            $mensajeParaVista=array("tipoModal"=>"modalCorrecto","mensajePopUp"=>"Se ha realizado la inserccion satisfactoriamente","botonInsertar"=>'<img src="../../assets/add-circle.svg" alt="añadir fila" onclick="anadirFila()">');
         }catch(PDOException $errorSQL){
             $mensajeParaVista=array("tipoModal"=>"modalError","mensajePopUp"=>ErroresSQL::obtenerFraseError($errorSQL));
         }catch(Exception $e){

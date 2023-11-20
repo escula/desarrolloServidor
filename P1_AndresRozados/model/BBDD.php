@@ -2,7 +2,7 @@
 
 class BBDD{
     private $conexion;
-    public function  __construct($nombreServ="localhost:3307",$usuario="root",$password=""){
+    public function  __construct($nombreServ="localhost:3306",$usuario="root",$password=""){
 
         $this->conexion=new PDO("mysql:host=$nombreServ;dbname=pufosa;charset=utf8", $usuario, $password);
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -109,14 +109,14 @@ class BBDD{
             $sentencia.='"'.$valorAIntroducir.'", ';
 
         }
-        echo "antesDeSubString: ".$sentencia;
+        // echo "antesDeSubString: ".$sentencia;
         $sentencia=substr($sentencia,0,strlen($sentencia)-2);//Eliminando ultimo caracter en el string (la coma)
         $sentencia.=");";
-        echo "\n";
-        echo $sentencia;
-        echo "\na";
+        // echo "\n";
+        // echo $sentencia;
+        // echo "\na";
         $resultado= $this->conexion->exec($sentencia);
-        echo "el resultado es: ".$resultado;
+        // echo "el resultado es: ".$resultado;
         return $resultado;
 }
 
