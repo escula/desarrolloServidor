@@ -106,6 +106,13 @@ aside{
 }
 .col-resize{
     cursor: col-resize;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  
 }
 .tablaPulsada{
     background-color: lightsalmon;
@@ -121,7 +128,7 @@ main{
     overflow: hidden;
     gap:1%;
 }
-/* .modal-inicial{
+.modal-inicial{
     user-select:none;
     height: 20%;
     width: 40%;
@@ -132,17 +139,26 @@ main{
     align-items: center;
     font-size: 1.5em;
     padding:20px;
-} */
-.anadirFila img{
+}
+.anadir-icono-para-insert{
+    display:block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+.anadir-icono-para-insert img{
     margin:0% 5%;
     width: 25px;
     height: auto;
 }
-.anadirFila img:hover{
+.anadir-icono-para-insert img:hover{
     margin:0% 5%;
     width: 25px;
-    fill: white;
+    background-color: white;
     cursor: pointer;
+}
+.anadir-icono-para-insert button{
+    background-color: transparent;
 }
 .seccion-tabla{
     display:flex;
@@ -164,7 +180,7 @@ main{
             background-color: rgb(77, 90, 104);
             color:white;
         }
-        & tbody tr td:last-child{
+        & tbody tr td:last-child(){
             background-color: rgba(255, 255, 255, 0);
         }
     }
@@ -215,10 +231,16 @@ td img{
     white-space: wrap;
     font-size: 1.2em;
 }
-.anadirFila{
-display:block;
-display: flex;
-justify-content: center;
-align-items: center;
+
+
+input,form{
+    padding: 0% 0%;
+}
+input{
+    text-align: center;
+    color:black;
 }
 
+tr > td > input{
+    color:black;
+}

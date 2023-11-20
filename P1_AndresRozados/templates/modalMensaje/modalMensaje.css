@@ -12,6 +12,7 @@ dialog{
     bottom: 0px;
     padding:20px;
     z-index: 1;
+    display:block;
 }
 dialog div{
     display:flex;
