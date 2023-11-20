@@ -68,8 +68,9 @@ echo '<pre>';
     //     }
     //     return "alho ha salido mal";
     // }
-    $nombreyColumnasyValor=array("Ubicacion_ID"=>"'2'","GrupoRegional"=>"'otro nuevo'");
-    echo $conexion->modificarCualquierFila($nombreyColumnasyValor,"ubicacion","'4'");
+    // $nombreyColumnasyValor=array("Ubicacion_ID"=>"'2'","GrupoRegional"=>"'otro nuevo'");
+    // echo $conexion->modificarCualquierFila($nombreyColumnasyValor,"ubicacion","'4'");
+    print_r($conexion->obtenerInforme());
 
 ?>
 <script>

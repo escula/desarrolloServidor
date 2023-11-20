@@ -6,7 +6,29 @@ $conexionBD=new BBDD();
         
         if(isset($_POST['nombreTabla'])){
             if($_POST['nombreTabla']=='informes'){
-                
+                $informacion=$conexionBD->obtenerInforme();
+                    $resultadoVista="";
+                    $resultadoVista.='<section class="informe-tabla"><table>
+                    <thead>
+                            <tr>';
+                        
+                    foreach ($informacion[0] as $nombreColumna => $valorColumna) {
+                        $resultadoVista.='<th>'.$nombreColumna.'</th>';
+                    }
+
+                    $resultadoVista.='</tr>
+                    </thead>
+                    <tbody>';
+
+                    foreach ($informacion as $numerofila=>$arrayContieneFila) {//La contruccion del formulario tambien se podría hacer en el cliente pasandole un json o un xml
+                        $resultadoVista.='<tr>';
+                        foreach ($arrayContieneFila as $ValorDeCadaCasillaDeFila) {
+                            $resultadoVista.='<td>'.$ValorDeCadaCasillaDeFila.'</td>';        
+                        }
+                        
+                        $resultadoVista.='</tr>';
+                    }
+                    echo $resultadoVista;
             }else{
                     $resultadoTabla=$conexionBD->selectTodaTabla($_POST['nombreTabla']);
                     $resultadoVista="";

@@ -47,7 +47,6 @@ nav{
             text-align: center;
         }
         & li:last-child{
-            background-color: green;
             & img{
                 height: 30px;
                 width: auto;

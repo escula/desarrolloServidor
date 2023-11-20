@@ -150,5 +150,29 @@ class BBDD{
         // $prepareStatement->bindParam(':id',$idDefilaBorrar,PDO::PARAM_INT);
         // return $prepareStatement->execute();
     }
+    public function obtenerInforme(){
+        $sentencia='SELECT departamento.Departamento_ID, 
+        ubicacion.Ubicacion_ID as "ubicacionID", 
+        departamento.Nombre as "nombreDepart", 
+        count(empleados.empleado_ID) as "numero de empleado",
+        avg(empleados.Salario) as "suedo medio",
+        min(empleados.Salario) as "suedo Minimo",
+        max(empleados.Salario) as "suedo Maximo"
+        
+        FROM ubicacion 
+        INNER JOIN departamento 
+           ON(ubicacion.Ubicacion_ID = departamento.Ubicacion_ID)
+        INNER JOIN empleados 
+            ON (departamento.Departamento_ID = empleados.Departamento_ID)
+        GROUP BY departamento.Departamento_ID
+        ORDER BY departamento.Departamento_ID;';
+        $sentenciaResultado=$this->conexion->query($sentencia);
+        $resultadoFinal=[];
+
+        while($linea = $sentenciaResultado->fetch()){
+            array_push($resultadoFinal,$linea);
+        }
+        return $resultadoFinal;
+    }
 }
 ?>
