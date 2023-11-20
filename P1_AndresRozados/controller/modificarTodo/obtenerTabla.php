@@ -29,6 +29,8 @@ $conexionBD=new BBDD();
                         $resultadoVista.='</tr>';
                     }
                     echo $resultadoVista;
+            }else if($_POST['nombreTabla']=='log'){
+
             }else{
                     $resultadoTabla=$conexionBD->selectTodaTabla($_POST['nombreTabla']);
                     $resultadoVista="";

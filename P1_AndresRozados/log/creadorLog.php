@@ -1,10 +1,9 @@
 <?php
 class CreadorLog{
-    private static $archivo;
+    //No una propiedad de la ruta del fichero ya que el nombre del fichero puede variar
 
-    public static function crearLog($nombreFichero="error.log",$tipoError,$mensajeLog,$anadirTiempo=True){
-        echo $_SERVER["DOCUMENT_ROOT"];
-        $rutalog=$_SERVER["DOCUMENT_ROOT"]."/exercices/P1_AndresRozados/log/".$nombreFichero;
+    public static function crearLog($nombreFichero="logSQL.log",$tipoError,$mensajeLog,$anadirTiempo=True){
+        $rutalog="../../log/".$nombreFichero;
         
         $archivoAModificar=fopen($rutalog,"a+");
 
@@ -16,6 +15,10 @@ class CreadorLog{
         }
         fclose($archivoAModificar);
 
+    }
+    public static function obtenerContenidoLog($ficheroAleer="logSQL.log"){
+        $contenido =file_get_contents($_SERVER["DOCUMENT_ROOT"]."/exercices/P1_AndresRozados/log/".$ficheroAleer);
+        return $contenido;
     }
 }
 CreadorLog::crearLog("error.log","Error","Esto es una prueba1",True);

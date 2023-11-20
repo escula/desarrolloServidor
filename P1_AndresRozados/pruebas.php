@@ -70,8 +70,19 @@ echo '<pre>';
     // }
     // $nombreyColumnasyValor=array("Ubicacion_ID"=>"'2'","GrupoRegional"=>"'otro nuevo'");
     // echo $conexion->modificarCualquierFila($nombreyColumnasyValor,"ubicacion","'4'");
-    print_r($conexion->obtenerInforme());
+    include_once '../P1_AndresRozados/log/creadorLog.php';
+    CreadorLog::crearLog("logSQL","Error","esto es un error");
+    CreadorLog::crearLog("logSQL","Error","esto es un error");
 
+    CreadorLog::crearLog("logSQL","Error","esto es un error");
+
+    CreadorLog::crearLog("logSQL","Error","esto es un error");
+
+    CreadorLog::crearLog("logSQL","Error","esto es un error");
+    echo CreadorLog::obtenerContenidoLog("logSQL");
+
+    // print_r($conexion->obtenerInforme());
+    
 ?>
 <script>
         function cacatua(baseDatos){
