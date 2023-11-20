@@ -30,11 +30,7 @@ if(isset($_POST['nombreTabla'])){
     $mandarAfront["nuevoIcono"]='<section class="anadir-icono-para-insert"><button form="formulario" onclick="enviarFila()" ><img src="../../assets/save.svg" alt="realizar inserccion de datos" /></button></section>';
     echo json_encode($mandarAfront);
 }
-    /*
-    *Sirve para devolver un regx de un que se obtiene del tipo de columna ejemplo:
-    *varchar(30,5) return => ".{5,30}" / decimal(,5) return => ".{5,30}"
-    *palabraPrevia: corresponde a un plabra que se añade antes, esto se usa para el html
-    */
+    
     function obtenerRegxServer($valorCOLUMN_TYPE,$tipoInput,$palabraPrevia="",$postPalabra=""){//No permite nulebles
         $primerIndiceParentesis=strpos($valorCOLUMN_TYPE,'(');
         if($primerIndiceParentesis===false){//Si no tiene (
@@ -60,6 +56,11 @@ if(isset($_POST['nombreTabla'])){
             }
         }
     }
+    /*
+    *Sirve para devolver un regx de un que se obtiene del tipo de columna ejemplo:
+    *varchar(30,5) return => ".{5,30}" / decimal(,5) return => ".{5,30}"
+    *palabraPrevia: corresponde a un plabra que se añade antes, esto se usa para el html
+    */
     function obtenerRegxCliente($valorCOLUMN_TYPE,$tipoInput,$palabraPrevia="",$postPalabra=""){//No permite nulebles
         $primerIndiceParentesis=strpos($valorCOLUMN_TYPE,'(');
         if($primerIndiceParentesis===false){//Si no tiene (
@@ -88,7 +89,7 @@ if(isset($_POST['nombreTabla'])){
     //Caundo pulsamos en el boton de guardar la fila que vamos a inserta
     if(isset($_POST["insertarEnTabla"])){
         try{
-            $nombreColYValores=array_slice($_POST,0,-1);
+            $nombreColYValores=array_slice($_POST,0,-1);//para no coger el type hidden
             // print_r( $_POST);
             // print_r($nombreColYValores);
             // print_r($_POST['insertarEnTabla']);

@@ -1,12 +1,14 @@
  //Envia al servidor la tabla y recibe por text la html que se debe inyectar a su vez lo inyecta en el sitio adecuado
 
- let nombreTablaPulsada="";
+ var nombreTablaPulsada="";
+ var modificandoLinea=false;
  listaTablas=document.querySelectorAll('aside ul li');
  listaTablas.forEach(tablaNombre => {
     tablaNombre.onclick=tablaPulsada;
- });
+});
 
 function tablaPulsada(objEvento){
+    modificandoLinea=false;//Para que si estas actualizando una talbla y sin acabar la actualización te cambias de tabla te deje en esa tabla realizar actualizaciones
     let etiquetaConClaseTablaPulsada=document.getElementsByClassName("tablaPulsada");
     if(etiquetaConClaseTablaPulsada.length>0){//Tendria que haber solo una pero habriendo el inspector puedes añadir tu la clase manualmente, para borrar todas las clases relizamos un bucle for para eliminar todas las eituqetas con esa clase
         for (const etiquetaConTablaPulsada of etiquetaConClaseTablaPulsada) {
@@ -43,8 +45,11 @@ function tablaPulsada(objEvento){
         // createNode
         // elementoMain.createElement("")
         let botonesBorrar=document.getElementsByClassName('borrarFila');
-        for (let indiceBotonBorrar = 0; indiceBotonBorrar < botonesBorrar.length; indiceBotonBorrar++) {
-            botonesBorrar[indiceBotonBorrar].addEventListener("mousedown",pulsarBotonBorrar);
+        let botonesActualizar=document.getElementsByClassName('actualizaFila');
+        for (let indiceBotones = 0; indiceBotones < botonesBorrar.length; indiceBotones++) {
+            botonesBorrar[indiceBotones].addEventListener("mousedown",pulsarBotonBorrar);
+            
+            botonesActualizar[indiceBotones].addEventListener("mousedown",pulsarBotonActualizar);
            
         }
     })                    
@@ -65,7 +70,7 @@ function pulsarBotonBorrar(objetoEvento) {
     datosAEnviarAlBorrar.append('idABorrar',idFila);
 
     console.log(datosAEnviarAlBorrar);
-    let request=fetch('http://localhost/exercices/P1_AndresRozados/controller/modificarTodo/borrarFila.php',{
+    fetch('http://localhost/exercices/P1_AndresRozados/controller/modificarTodo/borrarFila.php',{
         method:'POST',
         body:datosAEnviarAlBorrar//Enviamos al servidor
     }).
@@ -103,6 +108,113 @@ function pulsarBotonBorrar(objetoEvento) {
         console.log(segundoError);
     });
 }
+function pulsarBotonActualizar(objetoEvento){
+    let filaAactualizar=objetoEvento.currentTarget.parentNode.parentNode;
+    let tds=filaAactualizar.childNodes;
+
+    let valoresColumnas="";
+    let separador="%;$.%&";//Hemos usado un separador tan rarro para que no haya problema con ningun texto y no se mezclen las columnas, cosa que pasaria si usasemos de separador una ,
+    for (let index = 0; index < tds.length-2; index++) {//lo pasamos a un string con un separador especial para mandarlo a servidor
+        valoresColumnas=valoresColumnas+tds[index].innerText+separador;
+    }
+    console.log("Cliente Antes"+valoresColumnas);
+    valoresColumnas=valoresColumnas.slice(0,-separador.length)//le quitamos el ultimo separador
+    console.log(valoresColumnas);
+
+    // let idFila=filaAactualizar.childNodes[0].innerHTML;//recogemos el id que simpre se encuentra en el primer td
+    let nombreColumnaID=document.querySelector('thead tr th').textContent;
+
+    let datosAEnviarAlBorrar= new FormData();
+
+    datosAEnviarAlBorrar.append('nombreTabla',nombreTablaPulsada);//Se obtiene de la variable generica
+    datosAEnviarAlBorrar.append('valoresColumnas',valoresColumnas);//Aqui esta metido tambien el valor del id
+
+    
+    fetch('http://localhost/exercices/P1_AndresRozados/controller/modificarTodo/actualizarFila.php',{
+        method:'POST',
+        body:datosAEnviarAlBorrar//Enviamos al servidor
+    }).
+    then(function(respuesta){//info que recive del server
+        
+        if(respuesta.ok){
+            return respuesta.json();
+
+        }else{
+            throw "error en la llamada";
+        }
+        
+    })
+    .then(function(respuestaServidor){
+        if(modificandoLinea){
+            const modal=document.getElementById('modalConfirmacion');
+            modal.firstElementChild.innerHTML="No puedes realizar otra modificacion mientras estas en una";
+            modal.style.backgroundColor="lightcoral";
+            modal.style.opacity="1"//Aparece el modal
+            setTimeout(() => {//Se desbanece solo el modal
+                    modal.style.opacity="0"
+                }, 2000);
+
+        }else{
+            modificandoLinea=true;
+            let contenidoPrincipal=document.querySelector('main');
+            // <section id="seccionActualizar" class="seccion-actualizar"></section>
+            let seccionActualizar=document.createElement("section");
+            seccionActualizar.setAttribute("id","seccionActualizar");
+            seccionActualizar.setAttribute("class","seccion-actualizar");
+            seccionActualizar.innerHTML=respuestaServidor.seccionActualizar;
+            contenidoPrincipal.appendChild(seccionActualizar);
+
+            //////////////Cuando clique en guardar modificacion
+            document.getElementById('formulario-insertar').addEventListener('submit',function(eventoo) {
+                eventoo.preventDefault();//evita que el navegador haga las acciones por defecto que tiene cuando ejecutas ese evento
+                var datosEnviar=new FormData(this);
+                fetch('http://localhost/exercices/P1_AndresRozados/controller/modificarTodo/actualizarEnBD.php',{
+                    method:'POST',
+                    body:datosEnviar
+                })
+                .then(response=>{
+                    
+                    if(response.ok){
+                        return response.json();
+            
+                    }else{
+                        throw "error en la llamada";
+                    }
+                })
+                .then(respuestaSer=>{
+                    console.log(respuestaSer)
+                    const modal=document.getElementById('modalConfirmacion');
+                    modal.firstElementChild.innerHTML=respuestaSer.mensajePopUp;
+                    
+                    if(respuestaSer.tipoModal=="modalCorrecto"){ 
+                        modal.style.opacity="1";//Aparece el modal
+                        modal.style.backgroundColor="lightgreen";
+                        setTimeout(() => {//Se desbanece solo el modal
+                            modal.style.opacity="0"
+                        }, 2000);
+                        modificandoLinea=false;
+                        document.getElementById('formulario-insertar').remove();
+                    }else{
+                        modal.style.opacity="1";//Aparece el modal
+                        setTimeout(() => {//Se desbanece solo el modal
+                            modal.style.opacity="0"
+                        }, 2000);
+                    }
+
+                    
+                    
+                })
+                .catch(error=>console.log(error));
+                
+            });
+        }
+        
+    })
+    .catch(function(segundoError){//captura el throw lanzado en el primer then
+        console.log(segundoError);
+    });
+}
+
 
 function anadirFila(){
     let datosAEnviarAlBorrar= new FormData();

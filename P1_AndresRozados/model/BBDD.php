@@ -102,6 +102,28 @@ class BBDD{
 
 
     }
+    /**
+     * tabla: string
+     * Nota:El primer numero del arrayConNombreColumnaYValor simpre debe ser el id para que funcione la funcion
+     */
+    public function modificarCualquierFila($arrayConNombreColumnaYValor,$tabla,$antiguoValordePK){
+        // UPDATE table_name
+        // SET column1 = value1, column2 = value2, ...
+        // WHERE condition;
+        
+        $sentencia='UPDATE '.$tabla.' SET ';
+        foreach ($arrayConNombreColumnaYValor as $nombreColumna => $valorColumna) {
+            $sentencia.=$nombreColumna." = ".$valorColumna.", ";
+        }
+        
+        $sentencia=substr($sentencia,0,strlen($sentencia)-2);//Eliminando los dos ultimos caracter en el string (la coma y espacio)
+        $primeraClave=array_key_first($arrayConNombreColumnaYValor);
+        $sentencia.=' WHERE '.$primeraClave.' = '.$antiguoValordePK;
+        $sentencia.=";";
+        $resultado= $this->conexion->exec($sentencia);
+        return $resultado;
+    }
+
     public function insertarCualquierCosa($arrayConNombreColumnaYvalor,$nomTabla){
         $sentencia="INSERT INTO ".$nomTabla." VALUES (";
         $numero=1;
@@ -110,7 +132,7 @@ class BBDD{
 
         }
         // echo "antesDeSubString: ".$sentencia;
-        $sentencia=substr($sentencia,0,strlen($sentencia)-2);//Eliminando ultimo caracter en el string (la coma)
+        $sentencia=substr($sentencia,0,strlen($sentencia)-2);//Eliminando los dos ultimos caracter en el string (la coma y espacio)
         $sentencia.=");";
         // echo "\n";
         // echo $sentencia;
@@ -120,26 +142,6 @@ class BBDD{
         return $resultado;
 }
 
-
-
-
-
-
-
-
-
-
-    public function insertarAlumno($nombre,$apellido,$telefono,$correo){
-            $prepareStatement=$this->conexion->prepare("INSERT INTO empleados (nombre,apellidos,telefono,correo) VALUES (:nombre,:apellido,:telefono,:correo)");
-            
-            $prepareStatement->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-            $prepareStatement->bindParam(':apellido', $apellido, PDO::PARAM_STR);
-            $prepareStatement->bindParam(':telefono', $telefono, PDO::PARAM_INT);
-            $prepareStatement->bindParam(':correo', $correo, PDO::PARAM_STR);
-            return $prepareStatement->execute();
-            
-
-    }
     public function eliminarFila($nombreTabla,$nombreColumnaID,$idDefilaBorrar){
         $resultado=$this->conexion->exec("DELETE FROM ".$nombreTabla." WHERE ".$nombreColumnaID." = ".$idDefilaBorrar);
         return $resultado;

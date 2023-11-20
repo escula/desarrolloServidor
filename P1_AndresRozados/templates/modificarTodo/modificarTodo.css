@@ -180,9 +180,6 @@ main{
             background-color: rgb(77, 90, 104);
             color:white;
         }
-        & tbody tr td:last-child(){
-            background-color: rgba(255, 255, 255, 0);
-        }
     }
     
 }
@@ -205,6 +202,20 @@ td img{
 .borrarFila:hover{
     background-color: white;
 }
+.actualizaFila{
+    background-color: lightcoral;
+    display:block;
+    width: 50px;
+    & img{
+        width: 20px;
+        height: auto;
+    }
+}   
+
+.actualizaFila:hover{
+    background-color: white;
+}
+
 .botonPulsado{
     background-color: lightseagreen;
 }
@@ -243,4 +254,30 @@ input{
 
 tr > td > input{
     color:black;
+}
+
+.seccion-actualizar{
+    flex-grow: 1;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    overflow: auto;
+    border-radius: 0;
+    height: 500px;
+
+}
+.formulario-actualizar{
+    width: 70%;
+    overflow: auto;
+    & button img{
+        height: 25px;
+        width:auto;
+    }
+    & input,button{
+        width: auto;
+        display: inline-block;
+    }
 }
