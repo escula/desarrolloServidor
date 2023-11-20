@@ -127,8 +127,7 @@ function anadirFila(){
         document.getElementsByClassName("anadir-icono-para-insert")[0].remove();
         document.querySelector('main').innerHTML=responseComprobada.nuevoIcono+document.querySelector('main').innerHTML ;
         document.getElementById('insertarTabla').setAttribute("value",nombreTablaPulsada);
-    })
-    .catch(function (e){
+    }).catch(function (e){
         console.log(e);
     });
     
@@ -166,7 +165,7 @@ function enviarFila(){
             if(respuestaServidor.tipoModal=="modalCorrecto"){ 
     
                 modal.style.backgroundColor="lightgreen";
-                
+                filaAborrar.remove();
             }else{
                 modal.style.backgroundColor="lightcoral";
             }
