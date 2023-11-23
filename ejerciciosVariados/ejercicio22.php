@@ -12,9 +12,9 @@
     </form>
     <?php
     // modificar el array inicial
-        $arrayAsociativo=["CE2134"=>array("nombre"=>"Arturo","age"=>21,"Salario"=>4354)];
+        $arrayAsociativo=["CE2134"=>array("nombre"=>"Arturo","age"=>21,"salario"=>4354)];
         
-        function calcularSalario($personalInfo){
+        function calcularSalario(&$personalInfo){ //Se usa el & para pasar un valor por referencia
             $name=$personalInfo["CE2134"]["nombre"];
             $currentSalary=$personalInfo["CE2134"]["salario"];
             $age=$personalInfo["CE2134"]["age"];
@@ -22,12 +22,12 @@
                 echo "no cambia salario";
             }else if($currentSalary>1000 && $currentSalary<2000){
                 if($age>45){
-                    $currentSalary=$currentSalary + $currentSalary*0.10;
-                }else $currentSalary=$currentSalary + $currentSalary*0.04;
+                    $currentSalary=$currentSalary + $currentSalary*0.04;
+                }else $currentSalary=$currentSalary + $currentSalary*0.10;
 
             }else{
                 if($age<30){
-                    $currentSalary=$currentSalary + $currentSalary*0.10;
+                    $currentSalary=1500;
                 }else if($age<45){
                     $currentSalary=$currentSalary + $currentSalary*0.03;
                 }else{
@@ -40,8 +40,9 @@
             echo "<p>".$age."</p>";
 
         }
+        calcularSalario($arrayAsociativo);
 
-
+        print_r($arrayAsociativo);
         
     ?>
 </body>

@@ -35,9 +35,10 @@
     "RCD MAllorca" => array("puntos"=>25,"posicion"=>19),
     "Eibar" => array("puntos"=>42,"posicion"=>14)
     );
-    a($aEquipos);
-    function a($teams){
+
+    function mostrarTresPrimerosEquipos($teams){
         $podium=array();
+        //Reordenando aray para poder aplicar un custom_sort
         foreach ($teams as $nameTeam=>$teamPointAndPosition) {
             if($teamPointAndPosition["posicion"]<=3){
                 array_push($podium,array(
@@ -47,19 +48,15 @@
                 
             }
         }
-
         function custom_sort($a,$b){
-
-            var_dump($a);
-            return $a["posicion"] > $b["posicion"] ? 1 : 0;
-                
-            
+            return $a["posicion"] > $b["posicion"] ? 1 : 0;         
         }
         usort($podium,"custom_sort");
-        
         print_r($podium);
     }
-    
+
+
+    mostrarTresPrimerosEquipos($aEquipos);
     
     
 ?>
