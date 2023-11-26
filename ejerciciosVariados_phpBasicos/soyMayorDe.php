@@ -8,9 +8,7 @@
         ?>
     </head>
     <?php
-        const CACA="casop";
         const Edad=2002;
-        define("nombreCOnst",213);
         $nombre = "Andrés";
         $apellido = "Rozados";
         echo "Hola mundo";
