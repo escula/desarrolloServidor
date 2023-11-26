@@ -1,1 +1,0 @@
-<h1>Esta es la platilla de prueba</h1>
