@@ -5,29 +5,14 @@ $productos=[];
     if(session_status() ===PHP_SESSION_NONE){
         session_start();
     }
-    if(count($_GET) >0 ){
-        foreach ($_GET as $nombreProducto => $valor) {
-            array_push($productos,$nombreProducto);
-        }
-        array_pop($productos);
-        $productosJSON=json_encode($productos);
-        $_SESSION['productos']=$productosJSON;
-    }
-    if(session_status()===PHP_SESSION_ACTIVE && isset($_GET['irACarrito'])){
+
+    if(session_status()===PHP_SESSION_ACTIVE){
         $precioTotal=0;
 
-        foreach (json_decode($_SESSION['productos']) as $key => $nombresProductos) {
-            foreach ($precio as $key => $precioProducto) {
-                if ($nombresProductos===$key) {
-                    $precioTotal=$precioTotal+$precioProducto;
-                }
-            }
+        foreach ($_SESSION['productos'] as $nombresProductos => $precio) {
+                $precioTotal=$precio+$precioTotal;
         }
 
-        echo  "precio total".$precioTotal;
-    }
-    if(session_status()===PHP_SESSION_ACTIVE && isset($_GET['cargar'])){
-        include_once('elegirProductos.php');
-        
+        echo  "precio total: ".$precioTotal;
     }
 ?>

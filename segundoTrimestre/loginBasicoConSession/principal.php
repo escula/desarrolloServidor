@@ -1,13 +1,18 @@
 <?php
-if(session_status()!==PHP_SESSION_ACTIVE && contrasenaCorrecta($_GET['nombre'],$_GET['contrasena'])){//Si no existe la sesion
-    session_start();
-    $_SESSION['nombre'] = $_GET['nombre'];
-    $_SESSION['contrasena'] = $_GET['contrasena'];
-    echo '<h1>HOla '.$_SESSION["nombre"]?? "desconocido".'></h1>';
-    echo '<a href="datos.php">Consultar datos</a>';
+if(isset($_GET['nombre'])){
+
+    if(session_status()!==PHP_SESSION_ACTIVE && contrasenaCorrecta($_GET['nombre'],$_GET['contrasena'])){//Si no existe la sesion
+        session_start();
+        $_SESSION['nombre'] = $_GET['nombre'];
+        $_SESSION['contrasena'] = $_GET['contrasena'];
+        echo '<h1>HOla '.$_SESSION["nombre"]?? "desconocido".'></h1>';
+        echo '<a href="datos.php">Consultar datos</a>';
+    }else{
+        echo '<h1>Crack pon bien los datos</h1>';
+        echo '<a href="formulario.php">volver a login</a>';
+    }
 }else{
-    echo '<h1>Crack pon bien los datos</h1>';
-    echo '<a href="formulario.php">volver a login</a>';
+    echo '<h1>Tienes que ir a la anterior página</h1>';
 }
 
 function contrasenaCorrecta($nombre,$contra){
