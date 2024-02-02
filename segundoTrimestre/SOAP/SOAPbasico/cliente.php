@@ -1,8 +1,8 @@
 <?php
 // Crear un cliente SOAP
 $cliente = new SoapClient(null, array(
-    'location' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP/sevidor.php',
-    'uri' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP',
+    'location' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP/SOAPbasico/sevidor.php',
+    'uri' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP/SOAPbasico',
     
     
 ));

@@ -1,14 +1,9 @@
 <?php
 // Definir una clase con métodos que estarán disponibles en el servicio
-class MiServicio {
-    public function saludar($nombre) {
-        return "¡Hola, $nombre!";
-    }
-}
-
+include_once('clase.php');
 // Crear el servidor SOAP
 $server = new SoapServer(null, array(
-    'uri' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP'));
+    'uri' => 'http://localhost/desarrolloServidor/segundoTrimestre/SOAP/SOAPbasico/'));
 $server->setClass('MiServicio');
 
 // Manejar la solicitud SOAP
