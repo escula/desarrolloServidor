@@ -26,6 +26,6 @@ if(isset($_GET['nombreAnimal'])){
 }
 ?>
 <form action="cliente.php" method="GET">
-    <input type="text" name="nombreAnimal" id="" value=<?=$nombre?>>
+    <input type="text" name="nombreAnimal" id="" value=<?=$nombre??""?>>
     <button>Buscar Perro</button>
 </form>
