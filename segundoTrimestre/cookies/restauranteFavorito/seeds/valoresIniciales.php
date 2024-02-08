@@ -1,33 +1,32 @@
 <?php
 
-use Ramsey\Uuid\Type\Integer;
 
 $serverName="localhost:3306";
 $username="root";
 $password="";
-$nombreBBDD="safcfsad";
+$nombreBBDD="restaurante";
+$contraseña="1234";
 
 
 
-$conn=new PDO("mysql:host=".$serverName,$username,$password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
 $conn=new PDO("mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8",$username,$password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 if(defined('PASSWORD_ARGON2ID')) {
-    
-    $hash=password_hash($contraseña,PASSWORD_ARGON2ID);//Es mas robusta y mas nueva que bcrypt pero es más lenta, siendo más resistente a ataques de canal lateral
+
+    $hashContra=password_hash($contraseña,PASSWORD_ARGON2ID);//Es mas robusta y mas nueva que bcrypt pero es más lenta, siendo más resistente a ataques de canal lateral
 }else{
     $coste = calcularComplejidadMaxima(0.355);
-    $contraseña="1234";
     $options=['cost'=>$coste];
-    $hash=password_hash($contraseña,PASSWORD_DEFAULT,$options);//Usa bcrypt por detrás
+    $hashContra=password_hash($contraseña,PASSWORD_DEFAULT,$options);//Usa bcrypt por detrás
 }
     
     //Generar Usuarios
-    $conn->exec('INSERT INTO Usuarios (nombre,contrasena) VALUES ("paco","'.$hash.'");');
-    $conn->exec('INSERT INTO Usuarios (nombre,contrasena) VALUES ("pablo","'.$hash.'");');
+    $conn->exec('INSERT INTO Usuarios (nombre,contrasena) VALUES ("paco","'.$hashContra.'");');
+    $conn->exec('INSERT INTO Usuarios (nombre,contrasena) VALUES ("pablo","'.$hashContra.'");');
 
     //GEnerar platos
     $conn->exec('INSERT INTO Platos (nombre,precio,categoria) VALUES ("carne",'.calcularPrecio().',"'.elegirCategoria().'")');

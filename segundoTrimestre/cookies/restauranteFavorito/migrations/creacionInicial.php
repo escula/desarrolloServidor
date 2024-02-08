@@ -2,7 +2,7 @@
 $serverName="localhost:3306";
 $username="root";
 $password="";
-$nombreBBDD="safcfsad";
+$nombreBBDD="restaurante";
 
     $conn=new PDO("mysql:host=".$serverName,$username,$password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -10,7 +10,9 @@ $nombreBBDD="safcfsad";
     $conn->exec("DROP DATABASE IF EXISTS ".$nombreBBDD.";CREATE DATABASE IF NOT EXISTS ".$nombreBBDD);
     $conn=null;
 
-    $conn=new PDO("mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8",$username,$password);
+    $ruta="mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8";
+
+    $conn=new PDO($ruta,$username,$password);
     $conn->exec("CREATE TABLE IF NOT EXISTS Usuarios(
         id int AUTO_INCREMENT PRIMARY KEY,
         nombre varchar(255) NOT NULL,
