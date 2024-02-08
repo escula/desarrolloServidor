@@ -10,9 +10,9 @@ $nombreBBDD="restaurante";
     $conn->exec("DROP DATABASE IF EXISTS ".$nombreBBDD.";CREATE DATABASE IF NOT EXISTS ".$nombreBBDD);
     $conn=null;
 
-    $ruta="mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8";
+    $ruta="mysql:host=$serverName;dbname=".$nombreBBDD.";charset=utf8";
 
-    $conn=new PDO($ruta,$username,$password);
+   $conn=new PDO($ruta, $username, $password);
     $conn->exec("CREATE TABLE IF NOT EXISTS Usuarios(
         id int AUTO_INCREMENT PRIMARY KEY,
         nombre varchar(255) NOT NULL,

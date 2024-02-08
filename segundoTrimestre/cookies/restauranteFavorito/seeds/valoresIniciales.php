@@ -11,7 +11,7 @@ $contraseña="1234";
 
 
 
-$conn=new PDO("mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8",$username,$password);
+$conn=new PDO("mysql:host=$serverName;dbname=".$nombreBBDD.";charset=utf8",$username,$password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
@@ -65,3 +65,4 @@ function elegirCategoria() : string {
     $categoriaElegida=$categorias[rand(0,count($categorias)-1)];
     return $categoriaElegida ;
 }
+$conn=null;
