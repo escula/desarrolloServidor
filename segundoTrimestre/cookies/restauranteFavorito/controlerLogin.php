@@ -4,16 +4,37 @@ $username="root";
 $password="";
 $nombreBBDD="restaurante";
 
-if(isset($_SESSION["nombreLogin"]) && isset($_SESSION["contraLogin"])){
+if(isset($_GET["nombreLogin"]) && isset($_GET["contraLogin"])){
     session_start();
-    $_SESSION['usuario']=array("nombre"=>$_SESSION["nombreLogin"],"contra"=>$_SESSION["contraLogin"]);
+    $_SESSION['usuario']=array("nombre"=>$_GET["nombreLogin"],"contra"=>$_GET["contraLogin"]);
 
-    header('platosElegir.php');
+    if(comprobarUsuario($_GET["nombreLogin"],$_GET["contraLogin"],$serverName,$nombreBBDD,$password,$username)){
+        header('Location: platosElegir.php');
+
+    }else{
+        echo "hola";
+        // header('login.php');
+    }
 }
-function comprobarUsuario($serverName,$username,$password,$nombreBBDD){
-    $conn=new PDO("mysql:host=.$serverName;dbname=".$nombreBBDD.";charset=utf8",$username,$password);
+
+function comprobarUsuario($username,$contraLogin,$serverHost,$nameBBDD,$passwordBBDD,$nombreUsuario){
+    $resultado=false;
+
+    $conn=new PDO("mysql:host=$serverHost;dbname=".$nameBBDD.";charset=utf8",$nombreUsuario,$passwordBBDD);
+    
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $conn->prepare("SELECT * FROM ");
+    $pr =$conn->prepare("SELECT * FROM Usuarios WHERE nombre = :nombre");
+    $pr->bindParam(':nombre', $username, PDO::PARAM_STR);
+    $pr->execute();
+    $resultadoSQL =$pr->fetchAll(PDO::FETCH_ASSOC);
+
+    if(count($resultadoSQL)>0){//separando en dos if la comparación es menos larga y devuelve antes el resultado
+        if(password_verify($contraLogin,$resultadoSQL[0]["contrasena"])){
+            $resultado=true;
+        }
+    }
+
     $conn=null;
+    return $resultado;
 }

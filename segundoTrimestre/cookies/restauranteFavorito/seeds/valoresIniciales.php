@@ -19,9 +19,10 @@ if(defined('PASSWORD_ARGON2ID')) {
 
     $hashContra=password_hash($contraseña,PASSWORD_ARGON2ID);//Es mas robusta y mas nueva que bcrypt pero es más lenta, siendo más resistente a ataques de canal lateral
 }else{
-    $coste = calcularComplejidadMaxima(0.355);
+    // $coste = calcularComplejidadMaxima(0.355);
+    $coste=12;
     $options=['cost'=>$coste];
-    $hashContra=password_hash($contraseña,PASSWORD_DEFAULT,$options);//Usa bcrypt por detrás
+    $hashContra=password_hash($contraseña,PASSWORD_BCRYPT,$options);//Usa bcrypt por detrás
 }
     
     //Generar Usuarios

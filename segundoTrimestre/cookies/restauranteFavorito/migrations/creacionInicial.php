@@ -26,4 +26,3 @@ $nombreBBDD="restaurante";
         categoria varchar(255) NOT NULL
     );");
     $conn=null;
-
