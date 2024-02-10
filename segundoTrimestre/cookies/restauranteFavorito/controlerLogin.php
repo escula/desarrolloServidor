@@ -6,11 +6,10 @@ $nombreBBDD="restaurante";
 
 if(isset($_GET["nombreLogin"]) && isset($_GET["contraLogin"])){
     session_start();
-    $_SESSION['usuario']=array("nombre"=>$_GET["nombreLogin"],"contra"=>$_GET["contraLogin"]);
-
+    
     if(comprobarUsuario($_GET["nombreLogin"],$_GET["contraLogin"],$serverName,$nombreBBDD,$password,$username)){
+        $_SESSION['usuario']=array("nombre"=>$_GET["nombreLogin"],"contra"=>$_GET["contraLogin"]);
         header('Location: platosElegir.php');
-
     }else{
         echo "hola";
         // header('login.php');

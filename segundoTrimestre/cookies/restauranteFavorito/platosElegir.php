@@ -4,10 +4,23 @@ $username = "root";
 $password = "";
 $nombreBBDD = "restaurante";
 $contraseña = "1234";
+if(isset($_GET["cerrarCuenta"])){
+    header('Location: resumenCuenta.php');
+}
+if(session_status() === PHP_SESSION_NONE){
+    session_start();
+}
+if(isset($_GET["salirCuenta"])){
+    salirDeCuenta();
+}
+if(isset($_GET["sumarAlimento"])){
+    sumarPlato($_GET["sumarAlimento"]);
+}
+if(isset($_GET["restarAlimento"])){
+    restarPlato($_GET["restarAlimento"]);
+}
 
-
-session_start();
-if (session_status() === PHP_SESSION_ACTIVE) {
+if ( isset($_SESSION['usuario'])) {
 
     $conn = new PDO("mysql:host=$serverName;dbname=" . $nombreBBDD . ";charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -22,25 +35,27 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     $prepareStatement = $conn->prepare('SELECT * FROM Platos');
     $prepareStatement->execute();
     $resultadoConsulta = $prepareStatement->fetchAll(PDO::FETCH_ASSOC);
-    iniciarCookie($resultadoConsulta);
-    sumarPlato('aire');
+    //Inicia cookie cuado no se recibe ningun boton de añadir y quitar que es cuando se viene del login
+    if(!(isset($_GET['sumarAlimento']) || isset($_GET['restarAlimento']))){
+        iniciarCookie($resultadoConsulta);
+        echo "me activo";
+    }
+    
+    foreach ($resultadoConsulta as $fila) {
+        $nombreAlimento = $fila['nombre'];
+        $precioAlimento = $fila['precio'];
+        $categoriaALimento = $fila['categoria'];
+        echo '<label for="' . $nombreAlimento . '">' . $nombreAlimento . '</label>
+       <p style="display:inline">'.getNumeroPlato($nombreAlimento).'</p>     
+       <button name="sumarAlimento" value="' . $nombreAlimento . '">Añadir</button>
+       <button name="restarAlimento" value="' . $nombreAlimento . '">Quitar</button>
+       <p>' . $categoriaALimento . '</p>
+       </br>';
 
-    // print_r($_COOKIE['Platos']);
-    // foreach ($resultadoConsulta as  $fila) {
-    //    $nombreAlimento=$fila['nombre'];
-    //    $precioAlimento=$fila['precio'];
-    //    $categoriaALimento=$fila['categoria'];
-    //    echo '<label for="'.$nombreAlimento.'">'.$nombreAlimento.'</label>
-    //    <p style"display:inline"></p>     
-    //    <button name="sumarAlimento" value="'.$nombreAlimento.'">Añadir</button>
-    //    <button name="restarAlimento" value="'.$nombreAlimento.'">Quitar</button>
-    //    <p>'.$categoriaALimento.'</p>
-    //    </br>';
-
-
-    // }
+    }
+    echo '<button name="cerrarCuenta">Cerrar Cuenta</button>
+    <button name="salirCuenta" >CerrarSesion</button>';
     echo '</form>';
-    echo '<button>Generar Cuenta</button>';
 } else {
     include_once 'migrations/creacionInicial.php';
     include_once 'seeds/valoresIniciales.php';
@@ -54,52 +69,66 @@ function iniciarCookie($platosEnBBDD)
         array_push($valorCookie, array($plato['nombre'] => 0));
 
     }
-    $productosJson = json_encode($valorCookie);
-    setcookie('Platos', $productosJson, time() + 300000, '/');
+    $resultado = json_encode($valorCookie);
+    $_COOKIE['Platos'] = $resultado;
+    setcookie('Platos', $resultado, time() + 300000, '/');
 }
 function sumarPlato($nombrePlatoAincrementar)
 {
+    $encontrado = false;
     $platosCookie = json_decode($_COOKIE['Platos']);
     for ($i = 0; $i < count($platosCookie); $i++) {
-        print_r($platosCookie[$i]);
-        $nombrePlato = array_keys($platosCookie[$i]);
-        $numeroPlato = array_values($platosCookie[$i]);
-        $platosCookie[$i][$nombrePlato] = $numeroPlato[0] + 1;
-        
-        // if ($nombrePlato == $nombrePlatoAincrementar) {
-        //     $platosCookie[$i][$nombrePlato] = $numeroPlato[0] + 1;
-        //     echo $platosCookie[$i][$nombrePlato];
-        //     echo "hola";
-        //     break;
-        // }
-        // foreach ($platosCookie[$i] as $nombrePlato=>$numeroDePlato) {
-        //     echo $nombrePlato;
-        //     echo " ".$numeroDePlato;
-        //     echo '</br>';
-        //     if($nombrePlato==$nombrePlatoAincrementar){
-        //         $numeroDePlato=$numeroDePlato+1;
-        //         echo "hola";
-        //         break;
-        //     }
+        foreach ($platosCookie[$i] as $nombrePlato => &$numeroDePlato) {
 
-        // }
+            if ($nombrePlato == $nombrePlatoAincrementar) {
+                $numeroDePlato = $numeroDePlato + 1;
+                $encontrado = true;
+            }
+        }
+        if ($encontrado) {
+            break;
+        }
     }
-    print_r($platosCookie);
     $resultado = json_encode($platosCookie);
-    $productosJson = $resultado;
     $_COOKIE['Platos'] = $resultado;
-    echo '</br>';
-    print_r($_COOKIE['Platos']);
-    setcookie('Platos', $productosJson, time() + 300000, '/');
+    setcookie('Platos', $resultado, time() + 300000, '/');
 
 }
 
-// function restarPlato($nombrePlato){
-//     $valorCookie=[];
-//     foreach ($platosEnBBDD as $plato) {
-//         array_push($valorCookie,array($plato['nombre']=>0));
+function restarPlato($nombrePlatoARestar)
+{
+    $encontrado = false;
+    $platosCookie = json_decode($_COOKIE['Platos']);
+    for ($i = 0; $i < count($platosCookie); $i++) {
+        foreach ($platosCookie[$i] as $nombrePlato => &$numeroDePlato) {
 
-//     }
-//     $productosJson=json_encode($valorCookie);
-//     setcookie('Platos',$productosJson,time()+300000,'/');
-// }
+            if ($nombrePlato == $nombrePlatoARestar && $numeroDePlato!=0) {
+                $numeroDePlato = $numeroDePlato - 1;
+                $encontrado = true;
+            }
+        }
+        if ($encontrado) {
+            break;
+        }
+    }
+
+    $resultado = json_encode($platosCookie);
+    $productosJson = $resultado;
+    $_COOKIE['Platos'] = $resultado;
+    setcookie('Platos', $productosJson, time() + 300000, '/');
+}
+function getNumeroPlato($nombrePlatoImprimir)
+{
+    $platosCookie = json_decode($_COOKIE['Platos']);
+    for ($i = 0; $i < count($platosCookie); $i++) {
+        foreach ($platosCookie[$i] as $nombrePlato => $numeroDePlato) {
+            if ($nombrePlato == $nombrePlatoImprimir) {
+                return $numeroDePlato;
+            }
+        }
+    }
+    return "Algo ha fallado";
+}
+function salirDeCuenta(){
+    session_unset();
+}
