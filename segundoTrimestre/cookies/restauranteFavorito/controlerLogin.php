@@ -11,8 +11,7 @@ if(isset($_GET["nombreLogin"]) && isset($_GET["contraLogin"])){
         $_SESSION['usuario']=array("nombre"=>$_GET["nombreLogin"],"contra"=>$_GET["contraLogin"]);
         header('Location: platosElegir.php');
     }else{
-        echo "hola";
-        // header('login.php');
+        header('Location: login.php');
     }
 }
 
