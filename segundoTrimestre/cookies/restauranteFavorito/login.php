@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,9 @@
 </head>
 <body>
     <form action="controlerLogin.php" method="GET">
-        <label for="nombreLogin"></label>
+        <label for="nombreLogin">Nombre</label>
         <input type="text" name="nombreLogin" id="nombreLogin" required>
-        <label for="contraLogin"></label>
+        <label for="contraLogin">Contraseña</label>
         <input type="text" name="contraLogin" id="contraLogin" required>
         <button>Iniciar sesion</button>
     </form>
