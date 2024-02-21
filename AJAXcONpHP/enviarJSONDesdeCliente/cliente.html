@@ -6,13 +6,13 @@
     <title>Document</title>
     <script>
         let data = {nombre: "Juan", edad: 30};
-        
+
         fetch("./servidor.php", {
-          method: 'POST', 
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data), 
+          body: JSON.stringify(data),
         })
         .then(response => response.json())
         .then(data => console.log('Éxito:', data))
@@ -21,7 +21,7 @@
     </script>
 </head>
 <body>
-    
+
 </body>
 </html>
 

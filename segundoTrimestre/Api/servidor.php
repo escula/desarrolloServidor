@@ -15,6 +15,7 @@ if(isset($_GET['todos'])){
 }
 if(isset($_GET['id'])){
     header("HTTP/1.1 200 OK");
+//    header("HTTP/1.1 400 Bad Request");
     $sql = $conne->prepare("SELECT * FROM alumnos WHERE CODIGO= ".$_GET['id']);
     $sql->execute();
     $sql->setFetchMode(PDO::FETCH_ASSOC);
